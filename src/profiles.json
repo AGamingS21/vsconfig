@@ -1,0 +1,33 @@
+{
+    "extensions":[
+        "ms-azuretools.vscode-azureresourcegroups",
+        "ms-vscode.azure-account",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csdevkit",
+        "ms-python.python",
+        "rangav.vscode-thunder-client",
+        "tamasfe.even-better-toml",
+        "hashicorp.terraform",
+        "ms-mssql.sql-database-projects-vscode",
+        "ms-mssql.mssql",
+        "ms-vscode-remote.remote-ssh",
+        "ms-azuretools.vscode-bicep",
+        "ms-python.debugpy",
+        "ms-vscode-remote.remote-containers",
+        "ms-azure-devops.azure-pipelines",
+        "ms-python.vscode-pylance",
+        "bierner.markdown-mermaid",
+        "ms-vscode.powershell",
+        "hashicorp.hcl",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-azuretools.vscode-docker",
+        "github.vscode-github-actions",
+        "ms-vscode.makefile-tools",
+        "ms-dotnettools.blazorwasm-companion",
+        "ms-dotnettools.vscode-dotnet-pack",
+        "ms-vscode.remote-explorer",
+        "ms-mssql.data-workspace-vscode",
+        "ms-mssql.sql-bindings-vscode"
+    ]
+}
