@@ -3,6 +3,7 @@ using vscode.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
+using System.Collections;
 
 namespace vscode
 {
@@ -18,28 +19,41 @@ namespace vscode
             var config = JsonSerializer.Deserialize<Config>(File.ReadAllText(path));
 
             // To do:
-            
             // Create a list of extensions and if they were installed. This will ensure that if it is uninstalled from vscode it will be removed from config
-            foreach(var extension in config.extensions)
-            {
-                var output = VsCodeCommand($"code --install-extension {extension} --profile {filename}");
-                // improve output text to only use the parts that look nice from the text.
-                if(output.Contains("was successfully installed.") || output.Contains("is already installed."))
-                {
-                    Console.WriteLine(output);
-                }
-                else
-                {
-                    Console.WriteLine("unknown error");
-                }
-                
-            }
+            // Create the output file.
+            List<ExtensionStatus> extensionsToInstall = config.extensions.Select(item => new ExtensionStatus() { Name = item } ).ToList();
+            extensionsToInstall = InstallExtensions(extensionsToInstall, true, filename);      
             
-            // Add a list of extensions that were not uninstalled and do about 5 reruns perextension after a loop through of extensions due to dependencies
-            foreach(var extension in config.extensions)
+            
+            // To do: Read in the file from vscode config and then compare with what has alread been installed and then that is the list.
+            // For loop 5 times of the files that do need to be uninstalled.
+            List<ExtensionStatus> extensionsToUninstall = config.extensions.Select(item => new ExtensionStatus() { Name = item } ).ToList();
+            var unInstalledextensions = InstallExtensions(extensionsToUninstall, false, filename);            
+            
+            
+            
+            //MoveFile();
+        }
+
+        private static void MoveFile()
+        {
+            File.Create("./profiles/config.json");
+            Directory.CreateDirectory("profiles");
+        }
+
+        private static List<ExtensionStatus> InstallExtensions(List<ExtensionStatus> extensions, bool install, string profile)
+        {
+            string text;
+            if(install)
+                text = "install-extension";
+            else 
+                text = "uninstall-extension";        
+            
+            // To Do: Make the output looks nicer by getting substrings of the outputted text that I want to show.
+            foreach(var extension in extensions)
             {
-                
-                var output = VsCodeCommand($"code --uninstall-extension {extension} --profile {filename}");
+                extension.Attempts++;
+                var output = VsCodeCommand($"code --{text} {extension.Name} --profile {profile}");
                 if(output.Contains("Cannot uninstall") && (output.Contains("extension depends on this.") || output.Contains("extension depend on this.")))
                 {
                     // add to list of extensions
@@ -53,23 +67,19 @@ namespace vscode
                 {
                     Console.WriteLine(output);
                 }
+                else if(output.Contains("was successfully installed.") || output.Contains("is already installed."))
+                {
+                    Console.WriteLine(output);
+                    extension.Installed = true;
+                }
                 else
                 {
                     Console.WriteLine("unknown error");
                 }
-                
-            }
-            
-            
-            
-            
-            //MoveFile();
-        }
 
-        private static void MoveFile()
-        {
-            File.Create("./profiles/config.json");
-            Directory.CreateDirectory("profiles");
+            }
+
+            return extensions;
         }
 
         private static string VsCodeCommand(string command)
