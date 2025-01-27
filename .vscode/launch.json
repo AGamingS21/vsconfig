@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "C#: Debug The App",
+            "type": "dotnet",
+            "request": "launch",
+            "preLaunchTask": "MoveProfiles",
+            "projectPath": "${workspaceFolder}/src/vscode-config.csproj",
+            "launchConfigurationId": "TargetFramework=;vscode-config"
+        }
+    ]
+}

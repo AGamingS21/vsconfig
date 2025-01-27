@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "vscode-config.sln"
+    "dotnet.defaultSolution": "vscode-config.sln",
+    "FSharp.suggestGitignore": false
 }

@@ -1,7 +1,35 @@
 # vscode-config
 
 ## TODO
-- create profiles config
-- create relevant folders if they do not exist
-- edit storage.json
-- install extensions to profile
+- profiles
+    - ~~install/uninstall extensions to profile~~
+    - ~~keybinds~~
+    - ~~settings~~
+    - ~~tasks~~
+    - ~~snippets~~
+    - ~~create relevant folders if they do not exist~~
+    - ~~edit storage.json~~
+- CLI Commands
+- Parameterize:
+    - Based on release vs debug select different directories to read files from
+
+- Possible features
+    - two way sync: make it possible for changes in vscode to be made within config file
+        - when uninstalling extensions remove extensions that were previously installed but are nolonger in vs code from config
+        - when installing add extensions to config that were not in config but are now in vscode
+    - create config based on what is already installed on vscode
+
+
+
+## Logic
+### Installing
+- If ext is in config file but not in vscode then install add to output file
+- if ext is installed and not in config then write it back to the config file
+- if ext is already installed then do not attempt to install and include in output file
+- if ext is installed in config and installed in output then do not try and reinstall
+
+
+### Uninstalling
+- if ext is not in the config but in output file then uninstall
+- if ext is in config and output file as installed successfully but is not in vscode then remove from both files
+- if already uninstalled then do not attmpt to uninstall and remove from config file.
