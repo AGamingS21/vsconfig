@@ -17,7 +17,7 @@ namespace vsconfig
             #if DEBUG
                 var path = "./src/profiles/";
             #else   
-                string path = $"{homeFolder}/.config/configium/";
+                string path = $"{homeFolder}/.config/vsconfig/";
             #endif
 
             var rootCommand = new RootCommand();
@@ -25,26 +25,27 @@ namespace vsconfig
             rootCommand.Description = "vsconfig is a tool to setup vscode or any fork of it.";
 
             // configure subcommand setup            
-            var cliOption = new Option<string>("--cli", "The cli you would like to configure. vscode, vscodium, vscode-oss, etc.");
-            cliOption.SetDefaultValue("vscode");
-            cliOption.AddAlias("-c");
+            var forkOption = new Option<string>("--fork", "The fork you would like to configure. vscode, vscodium, vscode-oss, etc.");
+            forkOption.SetDefaultValue("vscode");
+
+            forkOption.AddAlias("-f");
             
             var pathOption = new Option<string>("--path", "The path to the folder where the config files are located.");
             pathOption.SetDefaultValue(path);
             pathOption.AddAlias("-p");
             
             var configureSubCommand = new Command("configure", "Create profiles based on config files.");
-            configureSubCommand.AddOption(cliOption);
+            configureSubCommand.AddOption(forkOption);
             configureSubCommand.AddOption(pathOption);
             
 
 
-            configureSubCommand.SetHandler((path, cli) =>
+            configureSubCommand.SetHandler((path, fork) =>
             {
-                new ConfigManager(path, cli)
+                new ConfigManager(path, fork)
                     .CreateProfile();
             }, 
-            pathOption, cliOption);
+            pathOption, forkOption);
 
             rootCommand.Add(configureSubCommand);
             

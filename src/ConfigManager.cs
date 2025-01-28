@@ -12,30 +12,30 @@ namespace vsconfig
     public class ConfigManager{
 
         public string ProfilePath {get; set;}
-        public string CliName {get; set;}
+        public string ForkName {get; set;}
         public string CodePath {get; set;}
         public string UserFolder {get;} = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public List<Profile> Profiles {get; set;}
 
-        public ConfigManager(string profilePath, string cliName)
+        public ConfigManager(string profilePath, string forkName)
         {
             ProfilePath = profilePath;
             Profiles = FileHelper.CreateObjectsFromJsonDirectory<Profile>(ProfilePath);
 
-            var cli = cliName;
-            if(cli == "vscode")
+            var fork = forkName;
+            if(fork == "vscode")
             {
-                CliName = "code";
+                ForkName = "code";
                 CodePath = $"{UserFolder}/.config/Code/User/"; 
             }
-            else if(cli == "vscode-oss")
+            else if(fork == "vscode-oss")
             {
-                CliName = "code";
+                ForkName = "code";
                 CodePath = $"{UserFolder}/.config/Code - OSS/User/"; 
             }
-            else if(cli == "vscodium")
+            else if(fork == "vscodium")
             {
-                CliName = "codium";
+                ForkName = "codium";
                 CodePath = $"{UserFolder}/.config/VSCodium/User/"; 
             }
             
@@ -120,7 +120,7 @@ namespace vsconfig
         private void InstallExtensions(Profile profile)
         {            
             // Find out all of the installed extensions
-            var output = MakeTerminalCommand($"{CliName} --list-extensions --profile {profile.Name}");
+            var output = MakeTerminalCommand($"{ForkName} --list-extensions --profile {profile.Name}");
 
             // Get list of extensions to be installed from config file
             List<ExtensionStatus> installedExtensions = profile.Extensions.Select(item => new ExtensionStatus() { Name = item } ).ToList();
@@ -140,7 +140,7 @@ namespace vsconfig
             // Get All extensions from config file
             var extensionsConfig = new List<string>(profile.Extensions); 
             // Find out all of the installed extensions
-            var output = MakeTerminalCommand($"{CliName} --list-extensions --profile {profile.Name}");
+            var output = MakeTerminalCommand($"{ForkName} --list-extensions --profile {profile.Name}");
             var installedOnVsCode = output.Split('\n');
             // remove last item from index as it is an empty string
             installedOnVsCode = installedOnVsCode.Take(installedOnVsCode.Length - 1).ToArray();
@@ -180,7 +180,7 @@ namespace vsconfig
             foreach(var extension in extensions)
             {
                 extension.Attempts++;
-                var output = MakeTerminalCommand($"{CliName} --{text} {extension.Name} --profile {profile}");
+                var output = MakeTerminalCommand($"{ForkName} --{text} {extension.Name} --profile {profile}");
                 if(output.Contains("Cannot uninstall") && (output.Contains("extension depends on this.") || output.Contains("extension depend on this.")))
                 {
                     // add to list of extensions
