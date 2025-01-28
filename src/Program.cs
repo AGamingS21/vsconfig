@@ -20,10 +20,7 @@ namespace vsconfig
                 string path = $"{homeFolder}/.config/configium/";
             #endif
 
-            var rootCommand = new RootCommand
-            {
-                new Option<int>("--number", "An integer option")
-            };
+            var rootCommand = new RootCommand();
 
             rootCommand.Description = "vsconfig is a tool to setup vscode or any fork of it.";
 
