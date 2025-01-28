@@ -1,6 +1,6 @@
 using System.Diagnostics.Contracts;
 
-namespace vscode.Models
+namespace vsconfig.Models
 {
     public class ExtensionStatus{
         public string? Name {get; set;}

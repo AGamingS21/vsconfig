@@ -5,7 +5,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/bin/Debug/net9.0/vscode-config.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/net9.0/vsconfig.dll",
             "justMyCode": false,
             "logging": {
                "moduleLoad": false

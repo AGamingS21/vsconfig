@@ -2,7 +2,7 @@ using System.Diagnostics.Contracts;
 using System.Text.Json;
 using System.Text;
 
-namespace vscode.Helpers
+namespace vsconfig.Helpers
 {
     public static class FileHelper
     {

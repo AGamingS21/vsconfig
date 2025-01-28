@@ -1,7 +1,7 @@
 using System.Diagnostics.Contracts;
 using System.Text.Json;
 
-namespace vscode.Models
+namespace vsconfig.Models
 {
     public class Profile{
         public string? Name {get; set;}

@@ -8,7 +8,7 @@
             "dependsOn": "MoveProfiles",
             "args": [
                 "build",
-                "${workspaceFolder}/vscode-config.sln",
+                "${workspaceFolder}/vsconfig.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],

@@ -3,7 +3,7 @@ using System.CommandLine.Invocation;
 using Microsoft.VisualBasic;
 
 
-namespace vscode
+namespace vsconfig
 {
     internal class Program
     {

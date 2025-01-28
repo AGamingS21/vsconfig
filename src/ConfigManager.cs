@@ -1,13 +1,13 @@
 using System.Diagnostics.Contracts;
-using vscode.Models;
-using vscode.Helpers;
+using vsconfig.Models;
+using vsconfig.Helpers;
 using System.Text.Json;
 using System.Diagnostics;
 using System.Text;
 using System.Xml.Linq;
 using System.IO;
 
-namespace vscode
+namespace vsconfig
 {
     public class ConfigManager{
 
