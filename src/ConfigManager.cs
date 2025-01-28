@@ -31,7 +31,7 @@ namespace vsconfig
             else if(cli == "vscode-oss")
             {
                 CliName = "code";
-                CodePath = $"{UserFolder}/.config/code-oss/User/"; 
+                CodePath = $"{UserFolder}/.config/'Code - OSS'/User/"; 
             }
             else if(cli == "vscodium")
             {

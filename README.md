@@ -28,13 +28,13 @@
 - MakeFile for publish
 - automated deployment
 - docs
-- tests
-- change name to vsconfig
+- ~~change name to vsconfig~~
 
 
-- Possible features
+- roadmap
     - two way sync: make it possible for changes in vscode to be made within config file
         - when uninstalling extensions remove extensions that were previously installed but are nolonger in vs code from config
         - when installing add extensions to config that were not in config but are now in vscode
     - create config based on what is already installed on vscode
     - xvg data directory
+    - tests
