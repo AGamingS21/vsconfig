@@ -44,8 +44,6 @@ namespace vscode
 
             configureSubCommand.SetHandler((path, cli) =>
             {
-                //Console.WriteLine(path);
-                Console.WriteLine(cli);
                 new ConfigManager(path, cli)
                     .CreateProfile();
             }, 
