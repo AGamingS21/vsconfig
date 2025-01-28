@@ -5,6 +5,7 @@
             "label": "build",
             "command": "dotnet",
             "type": "process",
+            "dependsOn": "MoveProfiles",
             "args": [
                 "build",
                 "${workspaceFolder}/vscode-config.sln",

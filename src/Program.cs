@@ -1,5 +1,6 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
+using Microsoft.VisualBasic;
 
 
 namespace vscode
@@ -8,43 +9,49 @@ namespace vscode
     {
         static int Main(string[] args)
         {
-            
-            var rootCommand = new RootCommand
-            {
-                new Option<int>("--number", "An integer option"),
-                //new Option<bool>("--flag", "A boolean option"),
-                //new Argument<string>("input", "A required input argument")
-            };
 
-            rootCommand.Description = "A simple CLI app";
-            // rootCommand.Handler = CommandHandler.Create<int, bool, string>((number, flag, input) =>
-            // {
-            //     Console.WriteLine($"Number: {number}");
-            //     Console.WriteLine($"Flag: {flag}");
-            //     Console.WriteLine($"Input: {input}");
-            // });
-
-            // How to have a --help setup
-            // output errors if no profile can be found.
-            // Have a default and an injected profile .configium path
-
-
+            // Determine user folder
             var homeFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            //var path = $"{userFolder}/.config/Code/User/globalStorage/storage.json";
+            
+            // if in debug mode use the profiles in the repo
             #if DEBUG
                 var path = "./src/profiles/";
             #else   
-                //string path = $"{homeFolder}/.config/configium/";
+                string path = $"{homeFolder}/.config/configium/";
             #endif
-            var cliName = "Code";
-            var configManager = new ConfigManager(path, cliName);
 
-            rootCommand.SetHandler(() => 
+            var rootCommand = new RootCommand
             {
-                configManager.CreateProfile();
-            });
+                new Option<int>("--number", "An integer option")
+            };
+
+            rootCommand.Description = "vsconfig is a tool to setup vscode or any fork of it.";
+
+            // configure subcommand setup            
+            var cliOption = new Option<string>("--cli", "The cli you would like to configure. vscode, vscodium, vscode-oss, etc.");
+            cliOption.SetDefaultValue("vscode");
+            cliOption.AddAlias("-c");
+            
+            var pathOption = new Option<string>("--path", "The path to the folder where the config files are located.");
+            pathOption.SetDefaultValue(path);
+            pathOption.AddAlias("-p");
+            
+            var configureSubCommand = new Command("configure", "Create profiles based on config files.");
+            configureSubCommand.AddOption(cliOption);
+            configureSubCommand.AddOption(pathOption);
+            
 
 
+            configureSubCommand.SetHandler((path, cli) =>
+            {
+                //Console.WriteLine(path);
+                Console.WriteLine(cli);
+                new ConfigManager(path, cli)
+                    .CreateProfile();
+            }, 
+            pathOption, cliOption);
+
+            rootCommand.Add(configureSubCommand);
             
         
             return rootCommand.Invoke(args);

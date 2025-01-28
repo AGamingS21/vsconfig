@@ -22,19 +22,6 @@
         "azureResourceGroups.selectedSubscriptions": [],
         "azureResourceGroups.groupBy": "resourceGroup",
         "mssql.enableRichExperiences": true,
-        "mssql.connections": [
-            {
-                "authenticationType": "SqlLogin",
-                "connectTimeout": 15,
-                "applicationName": "vscode-mssql",
-                "profileName": "hn-mssql",
-                "server": "hn-mssql",
-                "user": "sa",
-                "trustServerCertificate": true,
-                "password": "",
-                "savePassword": true
-            }
-        ],
         "mssql.openQueryResultsInTabByDefaultDoNotShowPrompt": true,
         "mssql.enableConnectionPooling": false,
         "mssql.enableNewQueryResultFeature": true,

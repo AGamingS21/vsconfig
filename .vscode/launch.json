@@ -1,12 +1,25 @@
 {
     "configurations": [
         {
-            "name": "C#: Debug The App",
-            "type": "dotnet",
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "MoveProfiles",
-            "projectPath": "${workspaceFolder}/src/vscode-config.csproj",
-            "launchConfigurationId": "TargetFramework=;vscode-config"
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/bin/Debug/net9.0/vscode-config.dll",
+            "justMyCode": false,
+            "logging": {
+               "moduleLoad": false
+            },
+            "args": [
+                "configure",
+                // "--path",
+                // "~/.config/configium",
+                "--cli",
+                "vscodium"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
         }
     ]
 }

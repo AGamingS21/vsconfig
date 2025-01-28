@@ -21,8 +21,24 @@ namespace vscode
         {
             ProfilePath = profilePath;
             Profiles = FileHelper.CreateObjectsFromJsonDirectory<Profile>(ProfilePath);
-            CliName = cliName;
-            CodePath = $"{UserFolder}/.config/{CliName}/User/"; 
+
+            var cli = cliName;
+            if(cli == "vscode")
+            {
+                CliName = "code";
+                CodePath = $"{UserFolder}/.config/Code/User/"; 
+            }
+            else if(cli == "vscode-oss")
+            {
+                CliName = "code";
+                CodePath = $"{UserFolder}/.config/code-oss/User/"; 
+            }
+            else if(cli == "vscodium")
+            {
+                CliName = "codium";
+                CodePath = $"{UserFolder}/.config/VSCodium/User/"; 
+            }
+            
         }
 
         public void CreateProfile()
@@ -53,10 +69,8 @@ namespace vscode
 
             var storage = new StorageFile();
             storage.userDataProfiles = userDataProfiles;
-
-            string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             
-            var path = $"{userFolder}/.config/{CliName}/User/globalStorage/storage.json";
+            var path = $"{CodePath}/globalStorage/storage.json";
             //var path1 = $"./storage.json";
             if(FileHelper.CheckIfFileExists(path))
             {
@@ -90,8 +104,7 @@ namespace vscode
 
         private void CreateProfileFolders(Profile profile)
         {
-            string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var path = $"{userFolder}/.config/{CliName}/User/profiles/{profile.Name}";
+            var path = $"{CodePath}profiles/{profile.Name}";
             if(!FileHelper.CheckIfDirectoryExists(path))
             {
                 Directory.CreateDirectory(path);
@@ -107,7 +120,7 @@ namespace vscode
         private void InstallExtensions(Profile profile)
         {            
             // Find out all of the installed extensions
-            var output = MakeTerminalCommand($"{CliName.ToLower()} --list-extensions --profile {profile.Name}");
+            var output = MakeTerminalCommand($"{CliName} --list-extensions --profile {profile.Name}");
 
             // Get list of extensions to be installed from config file
             List<ExtensionStatus> installedExtensions = profile.Extensions.Select(item => new ExtensionStatus() { Name = item } ).ToList();
@@ -127,7 +140,7 @@ namespace vscode
             // Get All extensions from config file
             var extensionsConfig = new List<string>(profile.Extensions); 
             // Find out all of the installed extensions
-            var output = MakeTerminalCommand($"{CliName.ToLower()} --list-extensions --profile {profile.Name}");
+            var output = MakeTerminalCommand($"{CliName} --list-extensions --profile {profile.Name}");
             var installedOnVsCode = output.Split('\n');
             // remove last item from index as it is an empty string
             installedOnVsCode = installedOnVsCode.Take(installedOnVsCode.Length - 1).ToArray();
@@ -167,7 +180,7 @@ namespace vscode
             foreach(var extension in extensions)
             {
                 extension.Attempts++;
-                var output = MakeTerminalCommand($"{CliName.ToLower()} --{text} {extension.Name} --profile {profile}");
+                var output = MakeTerminalCommand($"{CliName} --{text} {extension.Name} --profile {profile}");
                 if(output.Contains("Cannot uninstall") && (output.Contains("extension depends on this.") || output.Contains("extension depend on this.")))
                 {
                     // add to list of extensions
@@ -218,6 +231,5 @@ namespace vscode
             else
                 return process.StandardOutput.ReadToEnd();
         }
-
     }
 }
