@@ -21,8 +21,14 @@
     - ~~VSCode-Oss~~
     - ~~vscode~~
     - ~~vscodium~~
+- Better Comments
+- Console outputs
 - Fix:
     - gloablStorage folder needs to exist on first install
+- MakeFile for publish
+- docs
+- tests
+
 
 - Possible features
     - two way sync: make it possible for changes in vscode to be made within config file
