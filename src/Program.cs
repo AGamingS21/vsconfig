@@ -17,14 +17,14 @@ namespace vsconfig
             #if DEBUG
                 var path = "./src/profiles/";
             #else   
-                string path = $"{homeFolder}/.config/vsconfig/";
+                var path = $"{homeFolder}/.config/vsconfig/";
             #endif
 
             var rootCommand = new RootCommand();
 
             rootCommand.Description = "vsconfig is a tool to setup vscode or any fork of it.";
 
-            // configure subcommand setup            
+            // configure subcommand configure            
             var forkOption = new Option<string>("--fork", "The fork you would like to configure. vscode, vscodium, vscode-oss, etc.");
             forkOption.SetDefaultValue("vscode");
 
@@ -39,21 +39,17 @@ namespace vsconfig
             configureSubCommand.AddOption(pathOption);
             
 
-
+            // Handles what happens when configure is called
             configureSubCommand.SetHandler((path, fork) =>
             {
                 new ConfigManager(path, fork)
-                    .CreateProfile();
+                    .CreateProfiles();
             }, 
             pathOption, forkOption);
 
             rootCommand.Add(configureSubCommand);
             
-        
             return rootCommand.Invoke(args);
-
-    
-        
         }
 
     }

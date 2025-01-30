@@ -41,19 +41,21 @@ namespace vsconfig
             
         }
 
-        public void CreateProfile()
+        public void CreateProfiles()
         {
             CreateStorageFile();
             
             foreach(var profile in Profiles)
             {    
-                Console.WriteLine($"Installing profile: {profile.Name}");
+                Console.WriteLine($"Starting Install of profile: {profile.Name}");
                 CreateProfileFolders(profile);
                 UninstallExtensions(profile);
                 InstallExtensions(profile);
+                Console.WriteLine($"Completed Install of profile: {profile.Name}");
             }
         }
 
+        // modifies /User/globalStorage/storage.json to contain all profiles
         private void CreateStorageFile()
         {
             var userDataProfiles = new List<userDataProfiles>();

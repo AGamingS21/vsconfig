@@ -21,12 +21,9 @@
     - ~~VSCode-Oss~~
     - ~~vscode~~
     - ~~vscodium~~
-- Better Comments
-- Console outputs
-- Fix:
-    - gloablStorage folder needs to exist on first install
-- MakeFile for publish
-- automated deployment
+- ~~Better Comments~~
+- ~~Console outputs~~
+- ~~MakeFile for publish~~
 - docs
 - ~~change name to vsconfig~~
 
@@ -38,3 +35,9 @@
     - create config based on what is already installed on vscode
     - xvg data directory
     - tests
+    - override settings for Default profile
+    - error handling
+    - multiple profiles per json file
+    - support for multiple config files: json, toml, yaml
+    - support mac, windows and linux
+    - automated deployment
