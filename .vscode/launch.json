@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/bin/Debug/net9.0/vsconfig.dll",
+            "justMyCode": false,
+            "logging": {
+               "moduleLoad": false
+            },
+            "args": [
+                "configure",
+                // "--path",
+                // "~/.config/configium",
+                "--fork",
+                "vscodium"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}

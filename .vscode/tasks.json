@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": "MoveProfiles",
+            "args": [
+                "build",
+                "${workspaceFolder}/vsconfig.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MoveProfiles",
+            "command": "rm -r ${workspaceFolder}/src/bin/Debug/net9.0/profiles;  cp -r ${workspaceFolder}/src/profiles ${workspaceFolder}/src/bin/Debug/net9.0/profiles",
+            "type": "shell",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "ProfileDirectory",
+            "type": "shell",
+            "command": "mkdir -p {workspaceFolder}/src/bin/Debug/net9.0/profiles"
+            
+        },
+    ]
+}

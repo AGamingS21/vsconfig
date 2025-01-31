@@ -1,0 +1,58 @@
+{
+    // This is the name of the profile
+    "Name": "homelab",
+    // Determines if profile will be created or not in vscode
+    "Active": true,
+
+    // Can point to a default profile for different configs
+    "UseDefaultFlags": {
+        "settings": false,
+        "keybindings": false,
+        "tasks": false
+    },
+    // These are my settings.
+    "Settings": {
+        "git.defaultCloneDirectory": "",
+        "scm.showIncomingChanges": "never",
+        "scm.showOutgoingChanges": "never",
+        "git.enableSmartCommit": true,
+        "git.confirmSync": false,
+        "git.autofetch": true,
+        "powershell.promptToUpdatePowerShell": false,
+        "azureResourceGroups.selectedSubscriptions": [],
+        "azureResourceGroups.groupBy": "resourceGroup",
+        "extensions.ignoreRecommendations": true
+    },
+    "Keybindings":
+    // Place your key bindings in this file to override the defaults
+    [
+        {
+            "key": "ctrl+alt+c",
+            "command": "mssql.changeDatabase",
+            "when": "editorLangId == 'sql'"
+        },
+        {
+            "key": "f5",
+            "command": "mssql.runQuery",
+            "when": "editorTextFocus && editorLangId == 'sql'"
+        },
+        {
+            "key": "ctrl+`",
+            "command": "mssql.revealQueryResultPanel",
+            "when": "editorTextFocus && editorLangId == 'sql'"
+        },
+        {
+            "key": "ctrl+`",
+            "command": "workbench.action.terminal.focus",
+            "when": "!terminalFocus && editorLangId != 'sql'"
+        },
+        {
+            "key": "ctrl+`",
+            "command": "workbench.action.focusActiveEditorGroup",
+            "when": "terminalFocus || view.queryResult.visible"
+        }
+    ],
+    "Extensions": [
+        "ms-azuretools.vscode-azureresourcegroups"
+    ]
+}
